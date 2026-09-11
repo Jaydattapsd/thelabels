@@ -217,7 +217,7 @@ function Index() {
         <section id="home" className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 pb-20 pt-14 sm:px-6 lg:grid-cols-12 lg:pt-20">
           <div className="lg:col-span-6">
             <div className="rise inline-flex items-center gap-2 rounded-full border border-accent/20 bg-card px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-accent">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky" /> Pune · Labeling & Barcode Solutions
+              <span className="h-1.5 w-1.5 rounded-full bg-sky" /> LABELING & BARCODE SOLUTIONS
             </div>
             <div className="rise rise-delay-1 mt-6"><BrandMark /></div>
             <h1 className="rise rise-delay-2 mt-7 max-w-[17ch] font-display text-4xl font-semibold leading-[1.1] text-primary sm:text-5xl lg:text-[3.35rem]">Reliable Label &amp; Barcode Solutions for Your Business</h1>

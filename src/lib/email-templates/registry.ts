@@ -1,4 +1,6 @@
 import type { ComponentType } from 'react'
+import { template as quoteRequestTemplate } from './quote-request'
+import { template as quoteAcknowledgementTemplate } from './quote-acknowledgement'
 
 export interface TemplateEntry {
   component: ComponentType<any>

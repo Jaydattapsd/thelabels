@@ -18,7 +18,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 
 import barcodeLabelsAsset from "../assets/barcode-labels.jpg.asset.json";
 import barcodePrinterAsset from "../assets/barcode-printer.jpg.asset.json";
@@ -139,7 +139,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function ButtonLink({ href, children, secondary = false, className = "" }: { href: string; children: React.ReactNode; secondary?: boolean; className?: string }) {
+function ButtonLink({ href, children, secondary = false, className = "" }: { href: string; children: ReactNode; secondary?: boolean; className?: string }) {
   return (
     <a
       href={href}
@@ -375,7 +375,7 @@ function Index() {
   );
 }
 
-function Field({ label, children, wide = false }: { label: string; children: React.ReactNode; wide?: boolean }) {
+function Field({ label, children, wide = false }: { label: string; children: ReactNode; wide?: boolean }) {
   return <label className={`grid gap-1.5 text-sm font-bold text-primary ${wide ? "sm:col-span-2" : ""}`}><span>{label}</span>{children}</label>;
 }
 

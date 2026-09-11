@@ -94,6 +94,21 @@
     linear-gradient(180deg, var(--background) 0%, var(--surface) 48%, var(--background) 100%);
 }
 
+@utility form-control {
+  width: 100%;
+  min-height: 2.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--input);
+  background: color-mix(in oklab, var(--card) 86%, transparent);
+  padding: 0.7rem 0.8rem;
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  &::placeholder { color: var(--muted-foreground); }
+  &:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent); }
+}
+
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pulse-ring { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--sky) 32%, transparent); } 50% { box-shadow: 0 0 0 8px transparent; } }
 

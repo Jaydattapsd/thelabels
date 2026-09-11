@@ -325,7 +325,7 @@ function Index() {
             </div>
             <div className="rise rise-delay-1 mt-6"><BrandMark /></div>
             <h1 className="rise rise-delay-2 mt-7 max-w-[18ch] font-display text-4xl font-semibold leading-[1.1] text-primary sm:text-5xl lg:text-[3.2rem]">
-              Barcode Labels, Stickers, Printers &amp; Scanners in Pune
+              Barcode Labels, Stickers, Printers &amp; Scanners 
             </h1>
             <p className="rise rise-delay-3 mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
               The Labels provides barcode labels, printed stickers, thermal paper rolls, jewellery tags, sticker printers and barcode scanners for businesses in Pune and across India.

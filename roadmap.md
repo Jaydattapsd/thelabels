@@ -1,6 +1,6 @@
 # Roadmap
-- [ ] Generate and wire cohesive product imagery
-- [ ] Build responsive single-page website and interactions
-- [ ] Add metadata and semantic content
-- [ ] Verify desktop/mobile visuals and workflows
-- [ ] Confirm clean build and contact-number consistency
+- [x] Generate and wire cohesive product imagery
+- [x] Build responsive single-page website and interactions
+- [x] Add metadata and semantic content
+- [x] Verify desktop/mobile visuals and workflows
+- [x] Confirm clean build and contact-number consistency

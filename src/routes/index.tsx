@@ -26,6 +26,7 @@ import barcodeScannerAsset from "../assets/barcode-scanner.jpg.asset.json";
 import garmentTagsAsset from "../assets/garment-tags.jpg.asset.json";
 import heroProductsAsset from "../assets/hero-products.jpg.asset.json";
 import thermalRollsAsset from "../assets/thermal-rolls.jpg.asset.json";
+import officialLogoAsset from "../assets/the-labels-official-logo.jpeg.asset.json";
 
 const PHONE_DISPLAY = "+91 97256 62466";
 const PHONE_LINK = "+919725662466";
@@ -127,14 +128,12 @@ export const Route = createFileRoute("/")({
 
 function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <a href="#home" className="flex min-w-0 items-center gap-3" aria-label="The Labels home">
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground">
-        <Barcode className="h-6 w-6" strokeWidth={2.2} />
-      </span>
-      <span className="min-w-0 leading-none">
-        <span className="block truncate font-display text-lg font-bold text-primary">The Labels</span>
-        {!compact && <span className="mt-1 block text-[9px] font-bold uppercase tracking-[0.17em] text-accent">Stick. Identify. Organize.</span>}
-      </span>
+    <a href="#home" className="flex min-w-0 items-center" aria-label="The Labels home">
+      <img
+        src={officialLogoAsset.url}
+        alt="The Labels — Stick. Identify. Organize."
+        className={`${compact ? "h-11 w-40" : "h-14 w-52"} object-contain object-left transition-[width,height] duration-200`}
+      />
     </a>
   );
 }
@@ -245,7 +244,9 @@ function Index() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
             {products.map((product) => (
               <article key={product.title} className={`glass-panel group flex flex-col overflow-hidden rounded-xl p-4 transition duration-200 hover:-translate-y-1 ${product.span}`}>
-                <img src={product.image} width={912} height={736} loading="lazy" alt={product.alt} className="aspect-[16/10] w-full rounded-lg object-cover" />
+                <div className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-lg bg-muted p-3 sm:p-4">
+                  <img src={product.image} width={912} height={736} loading="lazy" alt={product.alt} className="h-full w-full object-contain object-center" />
+                </div>
                 <div className="flex flex-1 flex-col px-1 pb-1 pt-5">
                   <h3 className="font-display text-xl font-semibold text-primary">{product.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{product.description}</p>

@@ -13,6 +13,14 @@ const errorMiddleware = createMiddleware().server(async ({ next, request }) => {
     if (error != null && typeof error === "object" && "statusCode" in error) {
       throw error;
     }
+    // The browser cancelled the request mid-render (navigation, reload, HMR).
+    // Nothing to render for a client that has gone away.
+    const aborted =
+      request.signal.aborted ||
+      (error instanceof Error && error.message.toLowerCase().includes("aborted"));
+    if (aborted) {
+      return new Response(null, { status: 204 });
+    }
     console.error(error);
     return new Response(renderErrorPage(), {
       status: 500,

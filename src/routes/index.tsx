@@ -26,7 +26,7 @@ import barcodeScannerAsset from "../assets/barcode-scanner.jpg.asset.json";
 import garmentTagsAsset from "../assets/garment-tags.jpg.asset.json";
 import heroProductsAsset from "../assets/hero-products.jpg.asset.json";
 import thermalRollsAsset from "../assets/thermal-rolls.jpg.asset.json";
-import officialLogoAsset from "../assets/the-labels-official-logo.jpeg.asset.json";
+import officialLogoAsset from "../assets/the-labels-logo.png.asset.json";
 
 const PHONE_DISPLAY = "+91 97256 62466";
 const PHONE_LINK = "+919725662466";

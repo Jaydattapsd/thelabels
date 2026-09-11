@@ -12,7 +12,7 @@ const SITE_NAME = "The Labels"
 const SENDER_DOMAIN = "notify.thelabels.in"
 // FROM_DOMAIN is the domain shown in the From: header (e.g., "example.com").
 // Can be the root domain when display_from_root is enabled — this is cosmetic only.
-const FROM_DOMAIN = "notify.thelabels.in"
+const FROM_DOMAIN = "thelabels.in"
 
 export type SendTemplateEmailResult =
   | { sent: true }

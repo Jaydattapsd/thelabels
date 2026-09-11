@@ -4,11 +4,11 @@ import { sendTemplateEmail } from '@/lib/email-templates/send-email'
 
 const quoteSchema = z.object({
   name: z.string().trim().min(1).max(100),
-  company: z.string().trim().max(120).optional().default(''),
+  company: z.string().trim().min(1).max(120),
   mobile: z.string().trim().min(7).max(16).regex(/^[0-9+()\-\s]{7,16}$/),
   email: z.string().trim().email().max(255),
   product: z.string().trim().min(1).max(120),
-  quantity: z.string().trim().max(50).optional().default(''),
+  quantity: z.string().trim().min(1).max(50),
   message: z.string().trim().min(1).max(1000),
 })
 
@@ -59,11 +59,18 @@ export const Route = createFileRoute('/api/quote')({
         }
 
         try {
-          await sendTemplateEmail('quote-request', 'info@thelabels.in', {
+          const notification = await sendTemplateEmail('quote-request', 'info@thelabels.in', {
             templateData,
             idempotencyKey: `quote-request-${submissionId}`,
             replyTo: parsed.email,
           })
+          if (!notification.sent) {
+            console.error('quote notification suppressed', {
+              reason: notification.reason,
+              recipient: 'info@thelabels.in',
+            })
+            return Response.json({ ok: false, error: 'send_failed' }, { status: 502 })
+          }
         } catch (error) {
           console.error('quote notification failed', error)
           return Response.json({ ok: false, error: 'send_failed' }, { status: 502 })

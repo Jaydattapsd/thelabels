@@ -291,7 +291,8 @@ function Index() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!response.ok) throw new Error("send failed");
+      const result = await response.json().catch(() => null);
+      if (!response.ok || result?.ok !== true) throw new Error("send failed");
       setSubmitted(true);
       form.reset();
       setSelectedProduct("");
@@ -562,7 +563,7 @@ function Index() {
                   <Field label="Mobile Number"><input name="mobile" required maxLength={16} pattern="[0-9+() -]{7,16}" inputMode="tel" autoComplete="tel" className="form-control" placeholder="Mobile number" /></Field>
                   <Field label="Email Address"><input name="email" required maxLength={255} type="email" autoComplete="email" className="form-control" placeholder="name@company.com" /></Field>
                   <Field label="Product / Service Required"><select name="product" required value={selectedProduct} onChange={(event) => setSelectedProduct(event.target.value)} className="form-control"><option value="">Select a requirement</option>{productOptions.map((option) => <option key={option}>{option}</option>)}</select></Field>
-                  <Field label="Quantity"><input name="quantity" maxLength={50} className="form-control" placeholder="Approximate quantity" /></Field>
+                  <Field label="Quantity"><input name="quantity" required maxLength={50} className="form-control" placeholder="Approximate quantity" /></Field>
                   <Field label="Message / Requirement" wide><textarea name="message" required maxLength={1000} rows={5} className="form-control resize-y" placeholder="Tell us about sizes, materials, quantities or equipment needs" /></Field>
                   {sendError ? (
                     <div role="alert" className="rounded-lg border border-destructive/25 bg-destructive/10 p-4 text-sm text-destructive sm:col-span-2">

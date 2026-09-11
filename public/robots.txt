@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.thelabels.in/sitemap.xml
+Sitemap: https://thelabels.in/sitemap.xml

@@ -30,7 +30,7 @@ import ribbonRollsAsset from "../assets/ribbon-rolls.jpg.asset.json";
 import thermalRollsAsset from "../assets/thermal-rolls.jpg.asset.json";
 import officialLogoAsset from "../assets/the-labels-logo.png.asset.json";
 
-const SITE_URL = "https://www.thelabels.in";
+const SITE_URL = "https://thelabels.in";
 const PHONE_DISPLAY = "+91 97256 62466";
 const PHONE_LINK = "+919725662466";
 const EMAIL = "info@thelabels.in";

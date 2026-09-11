@@ -261,6 +261,8 @@ function Index() {
   const [supportOpen, setSupportOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -276,12 +278,28 @@ function Index() {
     window.setTimeout(() => document.querySelector("#quote")?.scrollIntoView({ behavior: "smooth" }), 20);
   };
 
-  const submitQuote = (event: FormEvent<HTMLFormElement>) => {
+  const submitQuote = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!event.currentTarget.checkValidity()) return;
-    setSubmitted(true);
-    event.currentTarget.reset();
-    setSelectedProduct("");
+    const form = event.currentTarget;
+    if (!form.checkValidity() || sending) return;
+    const data = Object.fromEntries(new FormData(form).entries());
+    setSending(true);
+    setSendError(false);
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error("send failed");
+      setSubmitted(true);
+      form.reset();
+      setSelectedProduct("");
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -536,7 +554,7 @@ function Index() {
               <h2 className="mt-2 font-display text-3xl font-semibold text-primary">Request a Quote</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Share your requirement and our team will help identify the right product or service.</p>
               {submitted ? (
-                <div role="status" className="mt-8 rounded-lg border border-success/25 bg-success/10 p-6 text-success"><CircleCheck className="h-9 w-9" /><p className="mt-4 font-display text-lg font-semibold">Thank you for contacting The Labels.</p><p className="mt-2 text-sm">Our team will get back to you shortly.</p><button type="button" onClick={() => setSubmitted(false)} className="mt-5 rounded-md bg-success px-4 py-2.5 text-sm font-bold text-success-foreground">Submit another request</button></div>
+                <div role="status" className="mt-8 rounded-lg border border-success/25 bg-success/10 p-6 text-success"><CircleCheck className="h-9 w-9" /><p className="mt-4 font-display text-lg font-semibold">Thank you for contacting The Labels.</p><p className="mt-2 text-sm">Your quote request has been received. Our team will contact you shortly.</p><button type="button" onClick={() => setSubmitted(false)} className="mt-5 rounded-md bg-success px-4 py-2.5 text-sm font-bold text-success-foreground">Submit another request</button></div>
               ) : (
                 <form className="mt-7 grid gap-4 sm:grid-cols-2" onSubmit={submitQuote}>
                   <Field label="Full Name"><input name="name" required maxLength={100} autoComplete="name" className="form-control" placeholder="Your full name" /></Field>
@@ -546,8 +564,18 @@ function Index() {
                   <Field label="Product / Service Required"><select name="product" required value={selectedProduct} onChange={(event) => setSelectedProduct(event.target.value)} className="form-control"><option value="">Select a requirement</option>{productOptions.map((option) => <option key={option}>{option}</option>)}</select></Field>
                   <Field label="Quantity"><input name="quantity" maxLength={50} className="form-control" placeholder="Approximate quantity" /></Field>
                   <Field label="Message / Requirement" wide><textarea name="message" required maxLength={1000} rows={5} className="form-control resize-y" placeholder="Tell us about sizes, materials, quantities or equipment needs" /></Field>
-                  <button type="submit" className="min-h-12 rounded-md bg-accent px-6 py-3 text-sm font-bold text-accent-foreground transition hover:bg-primary sm:col-span-2">Request Quote</button>
-                  <p className="text-xs leading-5 text-muted-foreground sm:col-span-2">This form currently confirms your request on screen and is ready for future email or enquiry integration.</p>
+                  {sendError ? (
+                    <div role="alert" className="rounded-lg border border-destructive/25 bg-destructive/10 p-4 text-sm text-destructive sm:col-span-2">
+                      <p className="font-semibold">Something went wrong while submitting your request. Please try again or contact us directly.</p>
+                      <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-semibold">
+                        <a href={`tel:${PHONE_LINK}`} className="underline">Call: {PHONE_DISPLAY}</a>
+                        <a href={`mailto:${EMAIL}`} className="underline">Email: {EMAIL}</a>
+                        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="underline">WhatsApp</a>
+                      </p>
+                    </div>
+                  ) : null}
+                  <button type="submit" disabled={sending} className="min-h-12 rounded-md bg-accent px-6 py-3 text-sm font-bold text-accent-foreground transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-70 sm:col-span-2">{sending ? "Sending Request…" : "Request Quote"}</button>
+                  <p className="text-xs leading-5 text-muted-foreground sm:col-span-2">Your request is emailed directly to our team at {EMAIL}, and you will receive an acknowledgement by email.</p>
                 </form>
               )}
             </div>
